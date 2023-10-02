@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://vp7ecu6ri6qy"]
+
+[ext_resource type="PackedScene" uid="uid://dd3fgdq3vq43l" path="res://cube.tscn" id="1_nenpw"]
+[ext_resource type="Script" path="res://cubes.gd" id="1_qk0nf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pakj"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6diob"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rthi4"]
+albedo_color = Color(0.419608, 0.337255, 0.278431, 1)
+
+[node name="Cubes" type="Node3D" node_paths=PackedStringArray("dev_label")]
+script = ExtResource("1_qk0nf")
+dev_label = NodePath("Control/Label")
+
+[node name="ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+shape = SubResource("BoxShape3D_7pakj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+mesh = SubResource("BoxMesh_6diob")
+surface_material_override/0 = SubResource("StandardMaterial3D_rthi4")
+
+[node name="Cube" parent="." instance=ExtResource("1_nenpw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+
+[node name="Cube2" parent="." instance=ExtResource("1_nenpw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+
+[node name="Cube3" parent="." instance=ExtResource("1_nenpw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965414, 0.260724, 0, -0.260724, 0.965414, 0, 2, 5)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92427, -2.5301)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -43.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Diagnostics"
+vertical_alignment = 1
